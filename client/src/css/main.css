@@ -1,0 +1,91 @@
+.backgroundimage-main-homepage {
+  background-image: url("../images/4.jpg");
+  height: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: absolute;
+  width: 100%;
+  opacity: 0.9;
+}
+
+h1 {
+  font-family: "Bebas Neue";
+}
+
+.title-main-homepage {
+  color: white;
+  position: absolute;
+  top: 45%;
+  font-size: 11vh;
+  left: 5%;
+  font-family: "Bebas Neue";
+}
+
+.sub-title-main-homepage {
+  color: white;
+  position: absolute;
+  top: 75%;
+  font-size: 20px;
+  left: 78.5%;
+  width: 100%;
+  opacity: 0.8;
+  font-family: sans-serif;
+  font-weight: 100;
+}
+
+.button-homepage-main-view-gallery {
+  position: absolute;
+  bottom: 10%;
+  left: 50%;
+}
+
+@media screen and (max-width: 1024px) {
+  .title-main-homepage {
+    font-size: 7vh;
+    left: 25%;
+  }
+  .sub-title-main-homepage {
+    font-size: 11px;
+    left: 50%;
+  }
+}
+
+@media screen and (max-width: 560px) {
+  .title-main-homepage {
+    font-size: 3vh;
+    left: 20%;
+  }
+}
+
+body,
+html {
+  height: 100%;
+  background-color: black;
+  color: white;
+}
+
+.nav-links-main a {
+  text-decoration: none;
+}
+
+.nav-link {
+  font-size: 20px;
+  color: white;
+  margin-right: 5px;
+  margin-top: 5px;
+  cursor: pointer;
+}
+
+.nav-links-main .active {
+  border-bottom: 1px solid #f1c40f;
+}
+
+.padding-top-5-percent {
+  padding-top: 5%;
+}
+
+.position-relative {
+  position: relative;
+}
+/*# sourceMappingURL=main.css.map */
