@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import PropTypes from 'prop-types';
 import AppBar from '@material-ui/core/AppBar';
 import Toolbar from '@material-ui/core/Toolbar';
@@ -22,107 +22,126 @@ import ExpandLess from '@material-ui/icons/ExpandLess';
 import ExpandMore from '@material-ui/icons/ExpandMore';
 import StarBorder from '@material-ui/icons/StarBorder';
 import Collapse from '@material-ui/core/Collapse';
-function Navbar() {
-  const [open ,setOpen] = useState(false);
-  const [listOpen,listsetOpen]=useState(false);
+import { Logout } from './Logout';
+function Navbar(props) {
+  const [open, setOpen] = useState(false);
+  const [listOpen, listsetOpen] = useState(false);
+
   const handleListClick = () => {
     listsetOpen(!listOpen);
   };
 
-  const handleDrawer = ()=>{
+  const [logged, setLogged] = useState(false);
+
+  const handleDrawer = () => {
     setOpen(true);
   }
 
-    return (
-        <div>
-             <AppBar 
-              elevation={0}
-              color='default'
-              > 
-          <Toolbar 
-          // sx={{display:'flex',alignItems:"center",justifyContent:"center"}}
-          >
-            <IconButton
+  useEffect(() => {
+    if (localStorage.getItem("accessToken") && !logged) {
+      setLogged(true);
+    } else {
+      setLogged(false);
+    }
+  }, [localStorage.getItem("accessToken"), props.listen])
+
+  return (
+    <div>
+      <AppBar
+        elevation={0}
+        color='default'
+      >
+        <Toolbar
+        // sx={{display:'flex',alignItems:"center",justifyContent:"center"}}
+        >
+          <IconButton
             size="large"
             edge="start"
             color="inherit"
             aria-label="menu"
-            sx={{color:"black",alignItems:"start"}}
+            sx={{ color: "black", alignItems: "start" }}
             onClick={handleDrawer}
           >
-            <MenuIcon 
-            sx={{fontSize:"4vh"}} />
+            <MenuIcon
+              sx={{ fontSize: "4vh" }} />
           </IconButton>
-          <Typography 
-          variant="h1"
-           color="initial"
-            component="div" sx={{display:'flex',alignItems:"center",justifyContent:"center",mx:'auto'}}>
-          <img src={logo} alt=""  style={{heigth:"1em",width:"2em"}} />
+          <Typography
+            variant="h1"
+            color="initial"
+            component="div" sx={{ display: 'flex', alignItems: "center", justifyContent: "center", mx: 'auto' }}>
+            <img src={logo} alt="" style={{ heigth: "1em", width: "2em" }} />
           </Typography>
-          </Toolbar>  
-        </AppBar>
-        
-        
-              <Drawer
-              varient="temporary"
-              anchor="left"
-              open={open}
-              onClose={()=>setOpen(false)}>
-          <List
-          sx={{mx:'auto'}}>
-            
-              <ListSubheader component="div">
-              <Typography 
-          variant="h1"
-           color="initial"
-            component="div" sx={{display:'flex',alignItems:"center",justifyContent:"center",mx:'auto'}}>
-          <img src={logo} alt=""  style={{heigth:"1em",width:"2em"}} />
-          </Typography>
-              </ListSubheader>
-            
-            <ListItemButton>
-              <ListItemText primary="Home"/>
-            </ListItemButton>
-           
-            <ListItemButton>
-              <ListItemText primary="About us"/>
-            </ListItemButton>
-           
-            <ListItemButton>
-              <ListItemText primary="Portfolio"/>
-            </ListItemButton>
-           
-            <ListItemButton>
-              <ListItemText primary="Services"/>
-            </ListItemButton>
-           
-            <ListItemButton>
-              <ListItemText primary="Contact us"/>
-            </ListItemButton>
+          {logged &&
+            <div>
+              <Button style={{ marginRight: "5px" }} variant="contained" color="warning" onClick={() => window.location.href = "/dashboard"}>Dashboard</Button>
+              <Button style={{ marginRight: "5px" }} variant="contained" color="success" onClick={() => window.location.href = "/admin/contacts"}>Contacts</Button>
+              <Logout setLogout={props.setLogout} />
+            </div>
+          }
+        </Toolbar>
+      </AppBar>
 
-            <ListItemButton onClick={handleListClick}>
-        <ListItemText primary="Inbox" />
-        {listOpen ? <ExpandLess /> : <ExpandMore />}
-      </ListItemButton>
-      <Collapse in={listOpen} timeout="auto" unmountOnExit>
-        <List component="div" disablePadding>
-          <ListItemButton sx={{ pl: 4 }}>
-            <ListItemText primary="Starred" />
+
+      <Drawer
+        varient="temporary"
+        anchor="left"
+        open={open}
+        onClose={() => setOpen(false)}>
+        <List
+          sx={{ mx: 'auto' }}>
+
+          <ListSubheader component="div">
+            <Typography
+              variant="h1"
+              color="initial"
+              component="div" sx={{ display: 'flex', alignItems: "center", justifyContent: "center", mx: 'auto' }}>
+              <img src={logo} alt="" style={{ heigth: "1em", width: "2em" }} />
+            </Typography>
+          </ListSubheader>
+
+          <ListItemButton>
+            <ListItemText primary="Home" />
           </ListItemButton>
-          <ListItemButton sx={{ pl: 4 }}>
-            <ListItemText primary="Starred" />
+
+          <ListItemButton>
+            <ListItemText primary="About us" />
           </ListItemButton>
-          <ListItemButton sx={{ pl: 4 }}>
-            <ListItemText primary="Starred" />
+
+          <ListItemButton>
+            <ListItemText primary="Portfolio" />
           </ListItemButton>
+
+          <ListItemButton>
+            <ListItemText primary="Services" />
+          </ListItemButton>
+
+          <ListItemButton>
+            <ListItemText primary="Contact us" />
+          </ListItemButton>
+
+          <ListItemButton onClick={handleListClick}>
+            <ListItemText primary="Inbox" />
+            {listOpen ? <ExpandLess /> : <ExpandMore />}
+          </ListItemButton>
+          <Collapse in={listOpen} timeout="auto" unmountOnExit>
+            <List component="div" disablePadding>
+              <ListItemButton sx={{ pl: 4 }}>
+                <ListItemText primary="Starred" />
+              </ListItemButton>
+              <ListItemButton sx={{ pl: 4 }}>
+                <ListItemText primary="Starred" />
+              </ListItemButton>
+              <ListItemButton sx={{ pl: 4 }}>
+                <ListItemText primary="Starred" />
+              </ListItemButton>
+            </List>
+          </Collapse>
         </List>
-      </Collapse>
-          </List>
-          
-          </Drawer>
-         
-        </div>
-    )
+
+      </Drawer>
+
+    </div>
+  )
 }
 
 export default Navbar

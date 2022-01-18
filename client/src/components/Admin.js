@@ -17,6 +17,7 @@ export const Admin = (props) => {
         let response = await axios.post(`${serverApi}/admin`, state);
         if (response?.data?.status && response?.data?.accessToken) {
             localStorage.setItem("accessToken", response?.data?.accessToken);
+            props.setLogout();
             history.push("/dashboard");
         }
         else alert("Please try again..!");

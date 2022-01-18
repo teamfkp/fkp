@@ -7,6 +7,8 @@ var cors = require('cors')
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+var upload = require('./routes/upload');
+const fileUpload = require('express-fileupload');
 
 var app = express();
 
@@ -19,6 +21,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(fileUpload());
 
 process.env.NODE_ENV = "production";
 
@@ -28,6 +31,7 @@ if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'staging')
 
   app.use('/', indexRouter);
   app.use('/admin', usersRouter);
+  app.use("/upload", upload);
 
   app.get('*', function (req, res) {
     res.sendFile(path.join(__dirname, 'client/build', 'index.html'));

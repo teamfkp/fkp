@@ -59,9 +59,9 @@ const Carousel = (props) => {
       <div class="carousel-inner">
         <div class="carousel-item active">
           <div class="d-flex align-items-center justify-content-center min-vw-100">
-            <img class="d-block w-100" src={one} alt="First slide" />
+            <img class="d-block w-100" style={{maxHeight:"80vh"}} src={one} alt="First slide" />
           </div>
-        </div>
+        </div> 
         <div class="carousel-item">
           <div class="d-flex align-items-center justify-content-center min-vw-100">
             <img class="d-block w-100" src={two} alt="Second slide" />
