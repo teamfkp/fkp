@@ -17,6 +17,7 @@ let secret = [
   '-----END PRIVATE KEY-----',
 ].join('\n');
 
+
 /* GET users listing. */
 app.post('/', async function (req, res, next) {
   try {
